@@ -17,9 +17,9 @@ A fork by bkubicek for the Ultimaker was merged, and further development was aid
 Some features have been added by:
 Lampmaker, Bradley Feldman, and others...
 
-Smartrap Mode
-==================
-Please most check configuration.h  Smartrap easy config area before use.
+Smartrap easy config
+=====================
+Please must check configuration.h  Smartrap easy config area before use.
 You might at least need to set the X_MAX_POS_DEF Y_MAX_POS_DEF Z_MAX_POS_DEF
 
 Features:
