@@ -5,14 +5,31 @@
 
 // ----- Smartrap easy config :
 
+// ====== X Y Z print Area define ====== 
+#define X_MAX_POS_DEF 150
+#define Y_MAX_POS_DEF 180 //150
+#define Z_MAX_POS_DEF 190 //130
 
- #define useEEPROM // just place it here so we don't look in all config file
- #define servoPololu // version with pololu servos. others are inverted angles ?!?!
- //#define LCDreprapdiscount // just place here so we don't look in all config file.
+#define useEEPROM // just place it here so we don't look in all config file
+
+// ====== LCD Selection ====== ! AT MOST ONE COULD BE ON / UNCOMMENTED
+#define LCDreprapdiscount // just place here so we don't look in all config file.
+// The RepRapDiscount FULL GRAPHIC Smart Controller (quadratic white PCB)
+// http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
+//
+// ==> REMEMBER TO INSTALL U8glib to your ARDUINO library folder: http://code.google.com/p/u8glib/wiki/u8glib
+//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
  
+// ====== Servo selection ====== ! AT LEAST ONE SHOULD BE ON / UNCOMMENTED
+#define servo_sg90 // version with SG-90 servo
+//#define servoPololu // version with pololu servos. others are inverted angles ?!?!
+
  // motors definitions - ! AT LEAST ONE SHOULD BE ON / UNCOMMENTED
- #define motors09 // version 0.9 degres motors. change steps
- //#define motors1848 // version motors 1.8 degres, 48mm long
+
+ #define motors1848 // version motors 1.8 degres, 48mm long
+ //#define motors1848_y_gt2 // version motors 1.8 degrees, 48mm long, with GT2 on y
+ //#define motors1848_gt2 // version motors 1.8 degrees, 48mm long, with GT2 on x,y
+ //#define motors09 // version 0.9 degres motors. change steps
  //#define motors1840 // version motors 1.8 degres, 40mm long . this one has a shaft adaptor and changes steps
 
 // ------ end smartrap easy config
@@ -32,7 +49,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(smartfriendz, smartrap1.05)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Clarence, smartrap1.05)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -92,7 +109,7 @@
 #endif
 
 // Define this to set a custom name for your generic Mendel,
-// #define CUSTOM_MENDEL_NAME "This Mendel"
+#define CUSTOM_MENDEL_NAME "Smartrap_105c"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -148,7 +165,7 @@
 #define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 0
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -335,11 +352,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // Travel limits after homing
-#define X_MAX_POS 150
+#define X_MAX_POS X_MAX_POS_DEF //150
 #define X_MIN_POS 0
-#define Y_MAX_POS 150
+#define Y_MAX_POS Y_MAX_POS_DEF //150
 #define Y_MIN_POS 0
-#define Z_MAX_POS 130
+#define Z_MAX_POS Z_MAX_POS_DEF //130
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -372,8 +389,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
     // set the rectangle in which to probe
     #define LEFT_PROBE_BED_POSITION 30
-    #define RIGHT_PROBE_BED_POSITION 110
-    #define BACK_PROBE_BED_POSITION 110
+    #define RIGHT_PROBE_BED_POSITION X_MAX_POS-30 //110
+    #define BACK_PROBE_BED_POSITION Y_MAX_POS-30 //110
     #define FRONT_PROBE_BED_POSITION 30
 
      // set the number of grid points per dimension
@@ -388,9 +405,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
       #define ABL_PROBE_PT_1_X 10
       #define ABL_PROBE_PT_1_Y 10
       #define ABL_PROBE_PT_2_X 10
-      #define ABL_PROBE_PT_2_Y 100
-      #define ABL_PROBE_PT_3_X 100
-      #define ABL_PROBE_PT_3_Y 55
+      #define ABL_PROBE_PT_2_Y Y_MAX_POS-10
+      #define ABL_PROBE_PT_3_X X_MAX_POS-10
+      #define ABL_PROBE_PT_3_Y Y_MAX_POS/2
 
   #endif // AUTO_BED_LEVELING_GRID
 
@@ -406,7 +423,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
   #define XY_TRAVEL_SPEED 6000         // X and Y axis travel speed between probes, in mm/min
 
-  #define Z_RAISE_BEFORE_PROBING 5    //How much the extruder will be raised before traveling to the first probing point.
+  #define Z_RAISE_BEFORE_PROBING 10    //How much the extruder will be raised before traveling to the first probing point.
   #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
   #define Z_RAISE_BETWEEN_PROBINGS_BEFORE_RETRACT  2 // smartrap : this happend just after probing point and before servo comes back ( to prevent servo to tap on the bed)
 
@@ -414,7 +431,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   //The value is the delay to turn the servo off after powered on - depends on the servo speed; 300ms is good value, but you can try lower it.
   // You MUST HAVE the SERVO_ENDSTOPS defined to use here a value higher than zero otherwise your code will not compile.
 
-  #define PROBE_SERVO_DEACTIVATION_DELAY 0
+  //#define PROBE_SERVO_DEACTIVATION_DELAY 0
+#define PROBE_SERVO_DEACTIVATION_DELAY 500
 
 
 //If you have enabled the Bed Auto Leveling and are using the same Z Probe for Z Homing,
@@ -453,6 +471,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define HOMING_FEEDRATE {50*60, 50*60, 4*60, 0}  // set the homing speeds (mm/min)
 
 // default settings - smartrap: uses define on top for diferent motors config
+#ifdef motors1848_y_gt2
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {185,80,4077,120}  // smartrap : version 1.8degv{185,80,4000,85} for Y axes GT2
+#endif
+#ifdef motors1848_gt2
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4077,120}  // smartrap : version 1.8degv{80,80,4000,85} for X & Y GT2
+#endif
 #ifdef motors09
   #define DEFAULT_AXIS_STEPS_PER_UNIT   {394,394,7400,170}  // smartrap : version 0.9 deg. 1/16 {382,382,7400,170}
 #endif
@@ -534,7 +558,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
 // ==> REMEMBER TO INSTALL U8glib to your ARDUINO library folder: http://code.google.com/p/u8glib/wiki/u8glib
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#ifdef LCDreprapdiscountFullGraphic
+#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
 
 // The RepRapWorld REPRAPWORLD_KEYPAD v1.1
 // http://reprapworld.com/?products_details&products_id=202&cPath=1591_1626
@@ -730,8 +756,13 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 //smartrap : version pololu servo (dark blue)
 #define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 35,100} // X,Y,Z Axis Extend and Retract angles
 #else
+#ifdef servo_sg90
+//smartrap : Tower PRO SG90 
+#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 55,145} // X,Y,Z Axis Extend and Retract angles
+#else
 //smartrap : version chinese 3.7g (light blue)
 #define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 75,10} // X,Y,Z Axis Extend and Retract angles
+#endif
 #endif
 
 #include "Configuration_adv.h"
