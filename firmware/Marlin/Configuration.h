@@ -149,7 +149,7 @@
 // 9 is 100k GE Sensing AL03006-58.2K-97-G1 (4.7k pullup)
 // 10 is 100k RS thermistor 198-961 (4.7k pullup)
 // 20 is the PT100 circuit found in the Ultimainboard V2.x
-// 60 is 100k Maker's Tool Works Kapton Bed Thermistor
+// 60 is 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
 //
 //    1k ohm pullup tables - This is not normal, you would have to have changed out your 4.7k for 1k
 //                          (but gives greater accuracy and more stable PID)
@@ -415,15 +415,15 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 0
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER 2.2
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -8.4 //2.2
   #define Z_PROBE_OFFSET_FROM_EXTRUDER_DELTA_X 0.5 // smartrap: special quantic error mesurement from porte a faux design (see marlin.cpp)
 
-  #define Z_RAISE_BEFORE_HOMING 5       // (in mm) Raise Z before homing (G28) for Probe Clearance.
+  #define Z_RAISE_BEFORE_HOMING 15       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
 
   #define XY_TRAVEL_SPEED 6000         // X and Y axis travel speed between probes, in mm/min
 
-  #define Z_RAISE_BEFORE_PROBING 10    //How much the extruder will be raised before traveling to the first probing point.
+  #define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
   #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
   #define Z_RAISE_BETWEEN_PROBINGS_BEFORE_RETRACT  2 // smartrap : this happend just after probing point and before servo comes back ( to prevent servo to tap on the bed)
 
@@ -432,7 +432,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   // You MUST HAVE the SERVO_ENDSTOPS defined to use here a value higher than zero otherwise your code will not compile.
 
   //#define PROBE_SERVO_DEACTIVATION_DELAY 0
-#define PROBE_SERVO_DEACTIVATION_DELAY 500
+#define PROBE_SERVO_DEACTIVATION_DELAY 300
 
 
 //If you have enabled the Bed Auto Leveling and are using the same Z Probe for Z Homing,
@@ -472,10 +472,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings - smartrap: uses define on top for diferent motors config
 #ifdef motors1848_y_gt2
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   {185,80,4077,120}  // smartrap : version 1.8degv{185,80,4000,85} for Y axes GT2
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {185,80,4000,110}  // smartrap : version 1.8degv{185,80,4000,85} for Y axes GT2
 #endif
 #ifdef motors1848_gt2
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4077,120}  // smartrap : version 1.8degv{80,80,4000,85} for X & Y GT2
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,110}  // smartrap : version 1.8degv{80,80,4000,85} for X & Y GT2
 #endif
 #ifdef motors09
   #define DEFAULT_AXIS_STEPS_PER_UNIT   {394,394,7400,170}  // smartrap : version 0.9 deg. 1/16 {382,382,7400,170}
