@@ -8,13 +8,14 @@
 
  #define useEEPROM // just place it here so we don't look in all config file
  #define servoPololu // version with pololu servos. others are inverted angles ?!?!
- #define LCDreprapdiscount // just place here so we don't look in all config file.
+ //#define LCDreprapdiscount // just place here so we don't look in all config file.
  
  // motors definitions - ! AT LEAST ONE SHOULD BE ON / UNCOMMENTED
  //#define motors09 // version 0.9 degres motors. change steps
  //#define motors1848 // version motors 1.8 degres, 48mm long
- #define motors1840 // version motors 1.8 degres, 40mm long . this one has a shaft adaptor and changes steps
-
+ //#define motors1840 // version motors 1.8 degres, 40mm long . this one has a shaft adaptor and changes steps
+  #define motors18rack // version rack motors 1.8 degres
+ //#define motors09rack // version rack motors 0.9 degres
 // ------ end smartrap easy config
 
 // This configuration file contains the basic settings.
@@ -41,6 +42,7 @@
 
 // This determines the communication speed of the printer
 // This determines the communication speed of the printer
+//#define BAUDRATE 115200
 #define BAUDRATE 250000
 
 // This enables the serial port associated to the Bluetooth interface
@@ -319,9 +321,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define DISABLE_E false // For all extruders
 
 #define INVERT_X_DIR false    // for Mendel set to false, for Orca set to true
-#define INVERT_Y_DIR true    // for Mendel set to true, for Orca set to false
+#define INVERT_Y_DIR false    // for Mendel set to true, for Orca set to false
 #define INVERT_Z_DIR false     // for Mendel set to false, for Orca set to true
-#define INVERT_E0_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
+#define INVERT_E0_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR false    // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E2_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 
@@ -388,8 +390,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
       #define ABL_PROBE_PT_1_X 10
       #define ABL_PROBE_PT_1_Y 10
       #define ABL_PROBE_PT_2_X 10
-      #define ABL_PROBE_PT_2_Y 140
-      #define ABL_PROBE_PT_3_X 100
+      #define ABL_PROBE_PT_2_Y 130
+      #define ABL_PROBE_PT_3_X 90
       #define ABL_PROBE_PT_3_Y 70
 
   #endif // AUTO_BED_LEVELING_GRID
@@ -399,7 +401,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 0
   #define Z_PROBE_OFFSET_FROM_EXTRUDER 2
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER_DELTA_X 0.3 // smartrap: special quantic error mesurement from porte a faux design (see marlin.cpp)
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER_DELTA_X 0.8 // smartrap: special quantic error mesurement from porte a faux design (see marlin.cpp)
 
   #define Z_RAISE_BEFORE_HOMING 5       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
@@ -460,7 +462,13 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   #define DEFAULT_AXIS_STEPS_PER_UNIT   {194,194,4000,85}  // smartrap : version 1.8degv{194,194,4000,85}
 #endif
 #ifdef motors1840
-   #define DEFAULT_AXIS_STEPS_PER_UNIT   {102,102,4000,83}  // smartrap : version 1.8degv{194,194,4000,85} robotdigg.shaft adaptor,fishline big
+   #define DEFAULT_AXIS_STEPS_PER_UNIT   {102,102,4000,85}  // smartrap : version 1.8degv{194,194,4000,85} robotdigg.shaft adaptor,fishline big
+#endif
+#ifdef motors18rack
+   #define DEFAULT_AXIS_STEPS_PER_UNIT   {77,77,4000,85}  // smartrap : version 1.8degv{194,194,4000,85} robotdigg.shaft adaptor,fishline big
+#endif
+#ifdef motors09rack
+   #define DEFAULT_AXIS_STEPS_PER_UNIT   {154,154,7400,170}  // smartrap : version 1.8degv{194,194,4000,85} robotdigg.shaft adaptor,fishline big
 #endif
 
 #define DEFAULT_MAX_FEEDRATE          {500, 500, 4, 25}    // (mm/sec)
